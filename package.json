@@ -1,27 +1,36 @@
 {
-  "name": "gps-tracker",
-  "version": "1.0.0",
-  "description": "A gps tracking server",
-  "main": "index.js",
-  "dependencies": {},
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MiguelMartinez624/gps-tracker.git"
-  },
-  "keywords": [
-    "gps",
-    "tracking",
-    "server",
-    "tk"
-  ],
-  "author": "Miguel Martinez",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/MiguelMartinez624/gps-tracker/issues"
-  },
-  "homepage": "https://github.com/MiguelMartinez624/gps-tracker#readme"
+    "name": "gps-tracker",
+    "version": "1.0.0",
+    "description": "A gps tracking server",
+    "main": "index.js",
+    "dependencies": {},
+    "devDependencies": {
+        "@types/chai": "^4.2.11",
+        "@types/mocha": "^7.0.2",
+        "chai": "^4.2.0",
+        "mocha": "^7.1.1",
+        "nyc": "^15.0.1",
+        "ts-node": "^8.8.2",
+        "typescript": "^3.8.3"
+    },
+    "scripts": {
+        "test": "mocha -r ts-node/register tests/**/*.test.ts",
+        "coverage": "nyc -r lcov -e .ts -x \"*.test.ts\" npm run test"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/MiguelMartinez624/gps-tracker.git"
+    },
+    "keywords": [
+        "gps",
+        "tracking",
+        "server",
+        "tk"
+    ],
+    "author": "Miguel Martinez",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/MiguelMartinez624/gps-tracker/issues"
+    },
+    "homepage": "https://github.com/MiguelMartinez624/gps-tracker#readme"
 }

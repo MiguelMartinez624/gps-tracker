@@ -5,14 +5,13 @@ import { Interpreter } from "./interpreter/interpreter.interface";
 import { EventEmitter } from "events";
 import { TrackMessage } from "./models/track-message";
 
-export class TrackingServer {
+export class TrackingServer extends EventEmitter {
 
     private _units: Map<IMEI, GPSTracker> = new Map<IMEI, GPSTracker>();
-    public Output: EventEmitter = new EventEmitter();
     constructor(
         private _server: Server,
         protected interpreter: Interpreter) {
-
+        super()
     }
 
     public Listen(port: string): void {
@@ -26,9 +25,10 @@ export class TrackingServer {
         const tracker = new GPSTracker(this.interpreter);
         tracker.connect(socket);
 
+        //Register event handler so the server an bubble up
         tracker.OnEvent = (message: TrackMessage, tracker: GPSTracker) => {
             //On event will only by called if th connection was succefull   
-            this.Output.emit('ping', { message: message, tracker: tracker });
+            this.emit('ping', { message: message, tracker: tracker });
         }
 
     };

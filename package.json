@@ -3,7 +3,9 @@
     "version": "1.0.0",
     "description": "A gps tracking server",
     "main": "index.js",
-    "dependencies": {},
+    "dependencies": {
+        "@types/node": "^13.11.1"
+    },
     "devDependencies": {
         "@types/chai": "^4.2.11",
         "@types/mocha": "^7.0.2",

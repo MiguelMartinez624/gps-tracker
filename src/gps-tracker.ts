@@ -30,7 +30,7 @@ export class GPSTracker {
     }
 
     private _handleMessage(msg: TrackMessage) {
-        switch (msg.Event) {
+        switch (msg.event) {
             case GPSEvent.HANDSHAKE:
 
                 break;

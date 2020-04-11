@@ -6,5 +6,5 @@ import { TrackMessage } from "../models/track-message";
 
 // the type 
 export interface Interpreter {
-    Decode(bytesF: string[]): TrackMessage
+    Decode(bytesF: string): TrackMessage
 }

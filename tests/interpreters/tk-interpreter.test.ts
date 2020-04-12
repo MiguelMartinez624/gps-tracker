@@ -1,7 +1,7 @@
 import { expect } from "chai";
-import { TKInterpreter } from "../src";
-import { TrackMessage } from "../src/models/track-message";
-import { GPSEvent } from "../src/types/events";
+import { TKInterpreter } from "../../src";
+import { TrackMessage } from "../../src/models/track-message";
+import { GPSEvent } from "../../src/types/events";
 
 describe('tk-interpreter', function () {
     const decoder: TKInterpreter = new TKInterpreter();

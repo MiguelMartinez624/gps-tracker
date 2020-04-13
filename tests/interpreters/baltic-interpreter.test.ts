@@ -1,7 +1,5 @@
 import { expect } from "chai";
-import { TrackMessage } from "../../src/models/track-message";
-import { GPSEvent } from "../../src/types/events";
-import { StringDecoder } from "string_decoder";
+
 import { BalticInterpreter } from "../../src";
 
 describe('baltic-interpreter extract data from raw', function () {
@@ -35,6 +33,12 @@ describe('baltic-interpreter extract ping data from raw', function () {
     });
     it('extract longitud', () => {
         expect(data.longitude).equals(27.75444221496582);
+    });
+    it('extract speed', () => {
+        expect(data.speed).equals(0);
+    });
+    it('extract orintation', () => {
+        expect(data.orientation).equals(228);
     });
 
    

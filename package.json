@@ -2,7 +2,8 @@
     "name": "gps-tracker",
     "version": "1.0.0",
     "description": "A gps tracking server",
-    "main": "index.js",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "dependencies": {
         "@types/node": "^13.11.1"
     },

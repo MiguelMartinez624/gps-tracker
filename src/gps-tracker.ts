@@ -4,7 +4,7 @@ import { Socket } from "net";
 import { GPSEvent } from "./types/events";
 import { EventEmitter } from "events";
 
-type EventHandler = (message: TrackMessage, tracker: GPSTracker) => void;
+type EventHandler = (e: string, message: TrackMessage, tracker: GPSTracker) => void;
 
 // GPSTracker its the server that takes care of the connection with the gps
 export class GPSTracker {
@@ -29,10 +29,18 @@ export class GPSTracker {
         });
     }
 
+    // _handleMessage its take a message and emitted
     private _handleMessage(msg: TrackMessage) {
         switch (msg.event) {
             case GPSEvent.HANDSHAKE:
 
+                break;
+            case GPSEvent.PING:
+                this.OnEvent('ping', msg, this);
+                break;
+
+            case GPSEvent.ALARM:
+                this.OnEvent('alarm', msg, this);
                 break;
 
             default:

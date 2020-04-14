@@ -20,15 +20,18 @@ export class TrackingServer extends EventEmitter {
 
 
     }
+
+    // _handleIncommingCon handle socket connection, creating a gps tracker
+    // and listening for events
     public _handleIncommingCon(socket: Socket): void {
 
         const tracker = new GPSTracker(this.interpreter);
         tracker.connect(socket);
 
         //Register event handler so the server an bubble up
-        tracker.OnEvent = (message: TrackMessage, tracker: GPSTracker) => {
+        tracker.OnEvent = (ev: string, message: TrackMessage, tracker: GPSTracker) => {
             //On event will only by called if th connection was succefull   
-            this.emit('ping', { message: message, tracker: tracker });
+            this.emit(ev, { message: message, tracker: tracker });
         }
 
     };

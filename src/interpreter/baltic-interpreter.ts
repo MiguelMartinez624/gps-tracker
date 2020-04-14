@@ -22,20 +22,21 @@ export class BalticInterpreter extends Interpreter {
     }
     getPingData(dataRaw: string | Buffer): PingData {
         let data: PingData = new PingData();
-        
+
         if (dataRaw instanceof Buffer) {
-            data.speed = Util.HexToInt(dataRaw.slice(8,9));
-            data.orientation = Util.HexToInt(dataRaw.slice(6,7)) * 2;
+            data.speed = Util.HexToInt(dataRaw.slice(8, 9));
+            data.orientation = Util.HexToInt(dataRaw.slice(6, 7)) * 2;
             data.latitude = Util.HexToIEEE754(dataRaw.slice(9, 13));
             data.longitude = Util.HexToIEEE754(dataRaw.slice(13));
         }
-      
+
         return data;
     }
 
 
     getAction(cmdRaw: string): GPSEvent {
-        throw new Error("Method not implemented.");
+
+        return GPSEvent.PING
     }
 
 

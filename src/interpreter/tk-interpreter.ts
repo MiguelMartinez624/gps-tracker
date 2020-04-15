@@ -5,19 +5,24 @@ import { PingData } from "../models/ping_data";
 import { Util } from "../util/util";
 
 export class TKInterpreter extends Interpreter {
-    parsePingMessage(dataRaw: string): TrackMessage {
+    parsePingMessage(dataRaw: Buffer): TrackMessage {
+        let data = this.extracData(dataRaw)
+        let ping = this.getPingData(data.data);
+        let message: TrackMessage = new TrackMessage(data.device_id, GPSEvent.PING, ping);
+        return message;
+    }
+    parseLoginMessage(dataRaw: Buffer): TrackMessage {
         throw new Error("Method not implemented.");
     }
-    parseLoginMessage(dataRaw: string): TrackMessage {
-        throw new Error("Method not implemented.");
-    }
-    parseAlarmMessage(dataRaw: string): TrackMessage {
+    parseAlarmMessage(dataRaw: Buffer): TrackMessage {
         throw new Error("Method not implemented.");
     }
     constructor() { super(); }
 
-    getAction(cmdRaw: string): GPSEvent {
-        switch (cmdRaw) {
+    getAction(cmdRaw: Buffer): GPSEvent {
+        let data = cmdRaw.toString();
+        let cmd = data.slice(data.indexOf("B"), 4)
+        switch (cmd) {
             case 'BP05':
                 return GPSEvent.LOGIN_REQUEST;
             case 'BR00':
@@ -30,8 +35,8 @@ export class TKInterpreter extends Interpreter {
         }
     }
 
-    getPingData(dataRaw: string): PingData {
-
+    getPingData(raw: Buffer): PingData {
+        let dataRaw = raw.toString();
         let data: PingData = new PingData();
         let rawDate = dataRaw.substr(0, 6);
 
@@ -55,14 +60,14 @@ export class TKInterpreter extends Interpreter {
 
     }
     // extracData slice the cuck of data into piezes of information
-    extracData(data: string): any {
+    extracData(raw: Buffer): any {
+        let data = raw.toString();
         var cmd_start = data.indexOf("B"); //al the incomming messages has a cmd starting with 'B'
         if (cmd_start > 13)
             throw "Device ID is longer than 12 chars!";
         var parts = {
             "start": data.substr(0, 1),
             "device_id": data.substring(1, cmd_start),
-            "cmd": data.substr(cmd_start, 4),
             "data": data.substring(cmd_start + 4, data.length - 1),
             "finish": data.substr(data.length - 1, 1)
         };

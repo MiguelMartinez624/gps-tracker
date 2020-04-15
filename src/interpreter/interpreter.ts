@@ -12,12 +12,12 @@ import { PingData } from "../models/ping_data";
 export abstract class Interpreter {
 
     // Decode it pars and extract the data from a raw gps message
-    Decode(raw: string): TrackMessage {
+    Decode(raw: Buffer): TrackMessage {
 
         let message: TrackMessage | null;
         const action: GPSEvent = this.getAction(raw);
-        let pingData: PingData | null = null;
 
+        //According to the type or command will use the corresponded parser
         switch (action) {
             case GPSEvent.LOGIN_REQUEST:
                 message = this.parseLoginMessage(raw)
@@ -32,17 +32,16 @@ export abstract class Interpreter {
             default:
                 break;
         }
-
-
-
-
         return message;
     }
 
-    abstract getAction(cmdRaw: string): GPSEvent;
-    abstract parsePingMessage(dataRaw: string): TrackMessage;
-    abstract parseLoginMessage(dataRaw: string): TrackMessage;
-    abstract parseAlarmMessage(dataRaw: string): TrackMessage;
-    // extracData
-    abstract extracData(data: string): any;
+    abstract getAction(cmdRaw: Buffer): GPSEvent;
+    // parsePingMessage parse the data from a ping message 
+    abstract parsePingMessage(dataRaw: Buffer): TrackMessage;
+
+    // parseLoginMessage parse the data from  a login message
+    abstract parseLoginMessage(dataRaw: Buffer): TrackMessage;
+
+    // parseAlarmMessage parse the data from an alarm message9
+    abstract parseAlarmMessage(dataRaw: Buffer): TrackMessage;
 }

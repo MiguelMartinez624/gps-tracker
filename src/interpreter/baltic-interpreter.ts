@@ -7,16 +7,24 @@ import { GPSEvent } from "../types/events";
 
 // BalticInterpreter implementation for a BalticInterprter GPS
 export class BalticInterpreter extends Interpreter {
-    parsePingMessage(dataRaw: string): TrackMessage {
-        throw new Error("Method not implemented.");
+    parsePingMessage(dataRaw: string | Buffer): TrackMessage {
+        if (dataRaw instanceof Buffer) {
+            let data = this.extracData(dataRaw)
+            let ping = this.getPingData(<Buffer>dataRaw.slice(23, 40).reverse());
+
+            let message: TrackMessage = new TrackMessage(data.device_id, GPSEvent.PING, ping);
+            return message;
+        }
     }
-    parseLoginMessage(dataRaw: string): TrackMessage {
-        throw new Error("Method not implemented.");
+    parseLoginMessage(dataRaw: Buffer): TrackMessage {
+        let message: TrackMessage;
+        return message;
     }
-    parseAlarmMessage(dataRaw: string): TrackMessage {
-        throw new Error("Method not implemented.");
+    parseAlarmMessage(dataRaw: Buffer): TrackMessage {
+        let message: TrackMessage;
+        return message;
     }
-    extracData(data: string | Buffer) {
+    extracData(data: Buffer) {
         let extracted: any = {};
 
         if (data instanceof Buffer) {
@@ -29,7 +37,8 @@ export class BalticInterpreter extends Interpreter {
 
         return extracted;
     }
-    getPingData(dataRaw: string | Buffer): PingData {
+
+    getPingData(dataRaw: Buffer): PingData {
         let data: PingData = new PingData();
 
         if (dataRaw instanceof Buffer) {
@@ -43,7 +52,7 @@ export class BalticInterpreter extends Interpreter {
     }
 
 
-    getAction(cmdRaw: string): GPSEvent {
+    getAction(cmdRaw: Buffer): GPSEvent {
 
         return GPSEvent.PING
     }

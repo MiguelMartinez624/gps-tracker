@@ -1,10 +1,19 @@
-import { Interpreter } from "./interpreter.interface";
+import { Interpreter } from "./interpreter";
 import { TrackMessage } from "../models/track-message";
 import { GPSEvent } from "../types/events";
 import { PingData } from "../models/ping_data";
 import { Util } from "../util/util";
 
 export class TKInterpreter extends Interpreter {
+    parsePingMessage(dataRaw: string): TrackMessage {
+        throw new Error("Method not implemented.");
+    }
+    parseLoginMessage(dataRaw: string): TrackMessage {
+        throw new Error("Method not implemented.");
+    }
+    parseAlarmMessage(dataRaw: string): TrackMessage {
+        throw new Error("Method not implemented.");
+    }
     constructor() { super(); }
 
     getAction(cmdRaw: string): GPSEvent {
@@ -20,7 +29,7 @@ export class TKInterpreter extends Interpreter {
                 break;
         }
     }
-    
+
     getPingData(dataRaw: string): PingData {
 
         let data: PingData = new PingData();

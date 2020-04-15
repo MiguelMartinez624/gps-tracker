@@ -1,7 +1,7 @@
 import { Server, Socket } from "net"
 import { IMEI } from "./types/imei";
 import { GPSTracker } from "./gps-tracker";
-import { Interpreter } from "./interpreter/interpreter.interface";
+import { Interpreter } from "./interpreter/interpreter";
 import { EventEmitter } from "events";
 import { TrackMessage } from "./models/track-message";
 

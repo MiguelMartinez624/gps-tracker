@@ -1,4 +1,4 @@
-import { Interpreter } from "./interpreter/interpreter.interface";
+import { Interpreter } from "./interpreter/interpreter";
 import { TrackMessage } from "./models/track-message";
 import { Socket } from "net";
 import { GPSEvent } from "./types/events";

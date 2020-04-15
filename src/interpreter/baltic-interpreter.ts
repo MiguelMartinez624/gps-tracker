@@ -1,4 +1,4 @@
-import { Interpreter } from "./interpreter.interface";
+import { Interpreter } from "./interpreter";
 import { TrackMessage } from "../models/track-message";
 import { Util } from "../util/util";
 import { PingData } from "../models/ping_data";
@@ -7,6 +7,15 @@ import { GPSEvent } from "../types/events";
 
 // BalticInterpreter implementation for a BalticInterprter GPS
 export class BalticInterpreter extends Interpreter {
+    parsePingMessage(dataRaw: string): TrackMessage {
+        throw new Error("Method not implemented.");
+    }
+    parseLoginMessage(dataRaw: string): TrackMessage {
+        throw new Error("Method not implemented.");
+    }
+    parseAlarmMessage(dataRaw: string): TrackMessage {
+        throw new Error("Method not implemented.");
+    }
     extracData(data: string | Buffer) {
         let extracted: any = {};
 

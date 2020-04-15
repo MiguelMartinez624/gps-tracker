@@ -22,8 +22,7 @@ export class GPSTracker {
 
         // handle data incomming
         socket.on('data', (data: Buffer) => {
-            const firstMsg = data.toString();
-            const message: TrackMessage = this._interpreter.Decode(firstMsg);
+            const message: TrackMessage = this._interpreter.Decode(data);
             this._handleMessage(message);
 
         });

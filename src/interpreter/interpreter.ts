@@ -16,7 +16,6 @@ export abstract class Interpreter {
 
         let message: TrackMessage | null;
         const action: GPSEvent = this.getAction(raw);
-
         //According to the type or command will use the corresponded parser
         switch (action) {
             case GPSEvent.LOGIN_REQUEST:

@@ -9,10 +9,12 @@ import { GPSEvent } from "../types/events";
 export class BalticInterpreter extends Interpreter {
     parsePingMessage(dataRaw: string | Buffer): TrackMessage {
         if (dataRaw instanceof Buffer) {
+            console.log(dataRaw)
             let data = this.extracData(dataRaw)
             let ping = this.getPingData(<Buffer>dataRaw.slice(23, 40).reverse());
 
             let message: TrackMessage = new TrackMessage(data.device_id, GPSEvent.PING, ping);
+
             return message;
         }
     }
@@ -29,7 +31,7 @@ export class BalticInterpreter extends Interpreter {
 
         if (data instanceof Buffer) {
             extracted = {
-                imei: Util.HexToInt(<Buffer>data.slice(0, 8)),
+                device_id: Util.HexToInt(<Buffer>data.slice(0, 8)),
                 date: Util.HexToDate(<Buffer>data.slice(13, 17)),
                 data: <Buffer>data.slice(23, 40).reverse()
             }

@@ -15,7 +15,7 @@ describe('baltic-interpreter extract data from raw', function () {
 
     it('decode IMEI', () => {
 
-        expect(decodedMessage.IMEI).equals("13612345678");
+        expect(decodedMessage.IMEI).equals(359006055062024);
     });
 
     it('decode Ping Data should be null', () => {

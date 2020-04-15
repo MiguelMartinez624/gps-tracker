@@ -1,18 +1,19 @@
 import { Interpreter } from "./interpreter";
 import { GPSEvent } from "../types/events";
 import { PingData } from "../models/ping_data";
+import { TrackMessage } from "../models/track-message";
 
 export class ConcoxInterpreter extends Interpreter {
-    parsePingMessage(dataRaw: string): import("../models/track-message").TrackMessage {
+    parsePingMessage(dataRaw: Buffer): TrackMessage {
         throw new Error("Method not implemented.");
     }
-    parseLoginMessage(dataRaw: string): import("../models/track-message").TrackMessage {
+    parseLoginMessage(dataRaw: Buffer): TrackMessage {
         throw new Error("Method not implemented.");
     }
-    parseAlarmMessage(dataRaw: string): import("../models/track-message").TrackMessage {
+    parseAlarmMessage(dataRaw: Buffer): TrackMessage {
         throw new Error("Method not implemented.");
     }
-    getAction(cmdRaw: string): GPSEvent {
+    getAction(cmdRaw: Buffer): GPSEvent {
         throw new Error("Method not implemented.");
     }
     getPingData(dataRaw: string): PingData {
@@ -22,7 +23,7 @@ export class ConcoxInterpreter extends Interpreter {
         let extracted: any = {}
         if (data instanceof Buffer) {
             extracted = {
-             }
+            }
         }
 
         return extracted;

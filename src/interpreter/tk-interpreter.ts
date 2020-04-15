@@ -21,7 +21,7 @@ export class TKInterpreter extends Interpreter {
 
     getAction(cmdRaw: Buffer): GPSEvent {
         let data = cmdRaw.toString();
-        let cmd = data.slice(data.indexOf("B"), 4)
+        let cmd = data.slice(data.indexOf("B"), data.indexOf("B") + 4)
         switch (cmd) {
             case 'BP05':
                 return GPSEvent.LOGIN_REQUEST;

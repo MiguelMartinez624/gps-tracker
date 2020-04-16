@@ -4,6 +4,10 @@
  */
 export class Util {
 
+    public static Hex2bin(hex){
+        return (parseInt(hex, 16).toString(2)).padStart(8, '0');
+    }
+
     public static HexToIEEE754(data: Buffer): any {
         let array = new Uint8Array(data);
         let view = new DataView(array.buffer);

@@ -10,7 +10,7 @@ export class ConcoxInterpreter extends Interpreter {
         let message: TrackMessage = new TrackMessage(
             imei,
             GPSEvent.PING,
-            this._getPingData(dataRaw.slice(3)));
+            this._getPingData(dataRaw.slice(4)));
 
 
 
@@ -44,17 +44,27 @@ export class ConcoxInterpreter extends Interpreter {
     }
     private _getPingData(dataRaw: Buffer): PingData {
         let pingData = new PingData();
-        // pingData.date=dataRaw.
+
+        pingData.date = this._extractDate(dataRaw.slice(0, 6));
+        pingData.latitude = parseInt(dataRaw.slice(7, 11).toString('hex'), 16) / 1800000;
+        pingData.longitude = parseInt(dataRaw.slice(11, 15).toString('hex'), 16) / 1800000;
+        pingData.speed = parseInt(dataRaw.slice(15, 16).toString('hex'), 16);
+        console.log(pingData)
         return pingData;
     }
-    extracData(data: string | Buffer) {
-        let extracted: any = {}
-        if (data instanceof Buffer) {
-            extracted = {
-            }
-        }
 
-        return extracted;
+    private _extractDate(raw: Buffer): any {
+        let year = Util.HexToInt(raw.slice(0, 1));
+        let month = Util.HexToInt(raw.slice(1, 2));
+        let day = Util.HexToInt(raw.slice(2, 3));
+        let hour = Util.HexToInt(raw.slice(3, 4));
+        let minute = Util.HexToInt(raw.slice(4, 5));
+        let second = Util.HexToInt(raw.slice(5));
+
+        let date = `20${year}-${month}-${day} ${hour}:${minute}:${second}`;
+        console.log(new Date(date))
+        console.log(date)
+        return date;
     }
 
 }

@@ -23,13 +23,17 @@ describe('concex-interpreter login Command', function () {
 
 describe('concex-interpreter ping (Location Data) Command', function () {
     const decoder: ConcoxInterpreter = new ConcoxInterpreter();
-    let raw = "78781F120B081D112E10CC027AC7EB0C46584900148F01CC00287D001FB8000380810D0A".trim()
+    let raw = "78781f12100906120d08cb002bf2e80c2d3ed00cd07301fe0a475500c49c02866b110d0a".trim()
     let buffer = Buffer.alloc(raw.length, raw, 'hex');
     const msg = decoder.Decode(buffer);
    
     it('command should be Ping', () => {
 
         expect(msg.event).equals(GPSEvent.PING);
+    });
+    it('command contain Date', () => {
+
+        expect(msg.pingData.date).equals("2016-9-6 18:13:8");
     });
 });
 

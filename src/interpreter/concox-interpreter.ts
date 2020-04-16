@@ -65,7 +65,6 @@ export class ConcoxInterpreter extends Interpreter {
         // let tempbuf = new Buffer(bytes.toString('hex'),'')
         let cursorBytes = Util.Hex2bin(dataRaw.slice(16, 18).toString('hex'));
         pingData.orientation = parseInt(cursorBytes.slice(6),2) ;
-        console.log(pingData)
         return pingData;
     }
 

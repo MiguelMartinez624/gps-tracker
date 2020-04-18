@@ -13,8 +13,6 @@ export class ConcoxInterpreter extends Interpreter {
             this._getPingData(dataRaw.slice(4))
         );
 
-
-
         return message;
     }
 

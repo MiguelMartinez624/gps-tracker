@@ -3,6 +3,7 @@ import { TrackMessage } from "./models/track-message";
 import { Socket } from "net";
 import { GPSEvent } from "./types/events";
 import { EventEmitter } from "events";
+import { IMEI } from "./types/imei";
 
 type EventHandler = (e: string, message: TrackMessage, tracker: GPSTracker) => void;
 
@@ -11,6 +12,8 @@ export class GPSTracker {
 
     public output: EventEmitter = new EventEmitter();
     public OnEvent: EventHandler | null = null;
+
+    public imei: IMEI;
 
     private _socket: Socket | null = null;
 
@@ -33,6 +36,10 @@ export class GPSTracker {
         switch (msg.event) {
             case GPSEvent.HANDSHAKE:
 
+                break;
+            case GPSEvent.LOGIN_REQUEST:
+                this.imei = msg.IMEI;
+                this.OnEvent('login', msg, this);
                 break;
             case GPSEvent.PING:
                 this.OnEvent('ping', msg, this);

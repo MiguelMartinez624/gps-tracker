@@ -12,10 +12,16 @@ export class TKInterpreter extends Interpreter {
         return message;
     }
     parseLoginMessage(dataRaw: Buffer): TrackMessage {
-        throw new Error("Method not implemented.");
+        let data = this.extracData(dataRaw)
+        let ping = this.getPingData(data.data);
+        let message: TrackMessage = new TrackMessage(data.device_id, GPSEvent.PING, ping);
+        return message;
     }
     parseAlarmMessage(dataRaw: Buffer): TrackMessage {
-        throw new Error("Method not implemented.");
+        let data = this.extracData(dataRaw)
+        let ping = this.getPingData(data.data);
+        let message: TrackMessage = new TrackMessage(data.device_id, GPSEvent.PING, ping);
+        return message;
     }
     constructor() { super(); }
 

@@ -27,7 +27,9 @@ export class GPSTracker {
         socket.on('data', (data: Buffer) => {
             const message: TrackMessage = this._interpreter.Decode(data);
             this._handleMessage(message);
-
+            if (message.IMEI) {
+                this.OnEvent('connected', message, this);
+            }
         });
     }
 

@@ -13,7 +13,7 @@ export abstract class Interpreter {
 
     // Decode it pars and extract the data from a raw gps message
     Decode(raw: Buffer): TrackMessage {
-
+        console.log("Raw string", raw.toString())
         let message: TrackMessage | null;
         const action: GPSEvent = this.getAction(raw);
         //According to the type or command will use the corresponded parser
@@ -29,6 +29,8 @@ export abstract class Interpreter {
                 break;
 
             default:
+                throw "Unhandled event";
+                
                 break;
         }
         return message;

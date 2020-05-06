@@ -27,10 +27,10 @@ export abstract class Interpreter {
             case GPSEvent.ALARM:
                 message = this.parseAlarmMessage(raw)
                 break;
-
             default:
+                message = this.parseAlarmMessage(raw)
                 throw "Unhandled event";
-                
+
                 break;
         }
         return message;

@@ -37,7 +37,7 @@ export class GPSTracker {
     private _handleMessage(msg: TrackMessage) {
         switch (msg.event) {
             case GPSEvent.HANDSHAKE:
-
+                this.OnEvent('handshake', msg, this);
                 break;
             case GPSEvent.LOGIN_REQUEST:
                 this.imei = msg.IMEI;
